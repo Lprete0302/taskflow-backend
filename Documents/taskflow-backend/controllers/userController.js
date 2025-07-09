@@ -13,7 +13,6 @@ const generateToken = (id) => {
 // @access  Public
 const registerUser = async (req, res) => {
   console.log('Incoming Body:', req.body);
-
   const { name, email, password } = req.body;
 
   try {
@@ -23,9 +22,8 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    // Let model handle password hashing
     const user = await User.create({ name, email, password });
-
-    console.log('User created:', user);
 
     if (user) {
       res.status(201).json({
@@ -68,7 +66,6 @@ const loginUser = async (req, res) => {
   }
 };
 
-// Export functions
 module.exports = {
   registerUser,
   loginUser,
